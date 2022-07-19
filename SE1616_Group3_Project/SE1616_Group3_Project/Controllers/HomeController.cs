@@ -7,9 +7,10 @@ namespace SE1616_Group3_Project.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-
-    public HomeController(ILogger<HomeController> logger)
+    private readonly BakingIngredientsContext _context;
+    public HomeController(ILogger<HomeController> logger, BakingIngredientsContext context)
     {
+        _context = context;
         _logger = logger;
     }
 
