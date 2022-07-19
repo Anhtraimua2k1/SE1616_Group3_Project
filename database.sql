@@ -275,7 +275,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[user](
 	[email] [nvarchar](100) NOT NULL,
-	[password] [ntext] NOT NULL,
+	[password] [nvarchar](100) NOT NULL,
 	[phone] [char](10) NULL,
 	[name] [nvarchar](100) NULL,
 	[address] [ntext] NULL,

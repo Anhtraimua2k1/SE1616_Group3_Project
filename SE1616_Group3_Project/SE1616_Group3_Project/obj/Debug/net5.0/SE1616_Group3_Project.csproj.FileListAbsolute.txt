@@ -52,3 +52,13 @@ C:\Users\ADMIN\Documents\GitHub\Project_PRN211\SE1616_Group3_Project\SE1616_Grou
 C:\Users\ADMIN\Documents\GitHub\Project_PRN211\SE1616_Group3_Project\SE1616_Group3_Project\bin\Debug\net5.0\Azure.Identity.dll
 C:\Users\ADMIN\Documents\GitHub\Project_PRN211\SE1616_Group3_Project\SE1616_Group3_Project\bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\ADMIN\Documents\GitHub\Project_PRN211\SE1616_Group3_Project\SE1616_Group3_Project\bin\Debug\net5.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\Users\nhiep\Desktop\Baking Ingredients\SE1616_Group3_Project\SE1616_Group3_Project\obj\Debug\net5.0\SE1616_Group3_Project.dll
+C:\Users\nhiep\Desktop\Baking Ingredients\SE1616_Group3_Project\SE1616_Group3_Project\obj\Debug\net5.0\SE1616_Group3_Project.pdb
+C:\Users\nhiep\Desktop\Baking Ingredients\SE1616_Group3_Project\SE1616_Group3_Project\obj\Debug\net5.0\SE1616_Group3_Project.csproj.AssemblyReference.cache
+C:\Users\nhiep\Desktop\Baking Ingredients\SE1616_Group3_Project\SE1616_Group3_Project\obj\Debug\net5.0\SE1616_Group3_Project.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nhiep\Desktop\Baking Ingredients\SE1616_Group3_Project\SE1616_Group3_Project\obj\Debug\net5.0\SE1616_Group3_Project.AssemblyInfoInputs.cache
+C:\Users\nhiep\Desktop\Baking Ingredients\SE1616_Group3_Project\SE1616_Group3_Project\obj\Debug\net5.0\SE1616_Group3_Project.AssemblyInfo.cs
+C:\Users\nhiep\Desktop\Baking Ingredients\SE1616_Group3_Project\SE1616_Group3_Project\obj\Debug\net5.0\SE1616_Group3_Project.csproj.CoreCompileInputs.cache
+C:\Users\nhiep\Desktop\Baking Ingredients\SE1616_Group3_Project\SE1616_Group3_Project\obj\Debug\net5.0\SE1616_Group3_Project.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\nhiep\Desktop\Baking Ingredients\SE1616_Group3_Project\SE1616_Group3_Project\obj\Debug\net5.0\SE1616_Group3_Project.RazorAssemblyInfo.cache
+C:\Users\nhiep\Desktop\Baking Ingredients\SE1616_Group3_Project\SE1616_Group3_Project\obj\Debug\net5.0\SE1616_Group3_Project.RazorAssemblyInfo.cs

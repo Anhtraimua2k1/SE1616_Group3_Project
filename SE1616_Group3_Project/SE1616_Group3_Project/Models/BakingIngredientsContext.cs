@@ -35,11 +35,8 @@ namespace SE1616_Group3_Project.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var conf = new ConfigurationBuilder()
-               .SetBasePath(Directory.GetCurrentDirectory())
-               .AddJsonFile("appsettings.json", true, true)
-               .Build();
-                optionsBuilder.UseSqlServer(conf.GetConnectionString("DbConnection"));
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS; database=BakingIngredients; Integrated security=true; TrustServerCertificate=true");
             }
         }
 
@@ -79,13 +76,13 @@ namespace SE1616_Group3_Project.Models
                 entity.HasOne(d => d.OwnerNavigation)
                     .WithMany(p => p.Blogs)
                     .HasForeignKey(d => d.Owner)
-                    .HasConstraintName("FK__blog__owner__68487DD7");
+                    .HasConstraintName("FK__blog__owner__3D5E1FD2");
             });
 
             modelBuilder.Entity<CartItem>(entity =>
             {
                 entity.HasKey(e => e.ProductId)
-                    .HasName("PK__cart_ite__47027DF56C2B7BA9");
+                    .HasName("PK__cart_ite__47027DF523FAA3D6");
 
                 entity.ToTable("cart_item");
 
@@ -107,12 +104,12 @@ namespace SE1616_Group3_Project.Models
                     .WithOne(p => p.CartItem)
                     .HasForeignKey<CartItem>(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__cart_item__produ__534D60F1");
+                    .HasConstraintName("FK__cart_item__produ__3E52440B");
 
                 entity.HasOne(d => d.UserEmailNavigation)
                     .WithMany(p => p.CartItems)
                     .HasForeignKey(d => d.UserEmail)
-                    .HasConstraintName("FK__cart_item__user___5441852A");
+                    .HasConstraintName("FK__cart_item__user___3F466844");
             });
 
             modelBuilder.Entity<Category>(entity =>
@@ -150,13 +147,13 @@ namespace SE1616_Group3_Project.Models
                 entity.HasOne(d => d.OrderItemNavigation)
                     .WithMany()
                     .HasForeignKey(d => d.OrderItem)
-                    .HasConstraintName("FK__delivery___order__5FB337D6");
+                    .HasConstraintName("FK__delivery___order__403A8C7D");
             });
 
             modelBuilder.Entity<Feedback>(entity =>
             {
                 entity.HasKey(e => new { e.UserEmail, e.OrderItem })
-                    .HasName("PK__feedback__F3DCE7DC78213FD9");
+                    .HasName("PK__feedback__F3DCE7DC9225E090");
 
                 entity.ToTable("feedback");
 
@@ -181,13 +178,13 @@ namespace SE1616_Group3_Project.Models
                     .WithMany(p => p.Feedbacks)
                     .HasForeignKey(d => d.OrderItem)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__feedback__order___6477ECF3");
+                    .HasConstraintName("FK__feedback__order___412EB0B6");
 
                 entity.HasOne(d => d.UserEmailNavigation)
                     .WithMany(p => p.Feedbacks)
                     .HasForeignKey(d => d.UserEmail)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__feedback__user_e__6383C8BA");
+                    .HasConstraintName("FK__feedback__user_e__4222D4EF");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -211,19 +208,19 @@ namespace SE1616_Group3_Project.Models
                 entity.HasOne(d => d.PaymentMethodNavigation)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.PaymentMethod)
-                    .HasConstraintName("FK__order__payment_m__59FA5E80");
+                    .HasConstraintName("FK__order__payment_m__4316F928");
 
                 entity.HasOne(d => d.UserEmailNavigation)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.UserEmail)
-                    .HasConstraintName("FK__order__user_emai__59063A47");
+                    .HasConstraintName("FK__order__user_emai__440B1D61");
             });
 
             modelBuilder.Entity<OrderItem>(entity =>
             {
                 entity.ToTable("order_item");
 
-                entity.HasIndex(e => e.ProductName, "UQ__order_it__2B5A6A5FDC61D82A")
+                entity.HasIndex(e => e.ProductName, "UQ__order_it__2B5A6A5FDAD5A8D0")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -253,7 +250,7 @@ namespace SE1616_Group3_Project.Models
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.OrderItems)
                     .HasForeignKey(d => d.OrderId)
-                    .HasConstraintName("FK__order_ite__order__5DCAEF64");
+                    .HasConstraintName("FK__order_ite__order__44FF419A");
             });
 
             modelBuilder.Entity<PaymentMethod>(entity =>
@@ -298,13 +295,13 @@ namespace SE1616_Group3_Project.Models
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CategoryId)
-                    .HasConstraintName("FK__product__categor__4CA06362");
+                    .HasConstraintName("FK__product__categor__45F365D3");
             });
 
             modelBuilder.Entity<ProductQuantity>(entity =>
             {
                 entity.HasKey(e => new { e.ProductId, e.ShopId, e.UpdateDate })
-                    .HasName("PK__product___649AE20D24D7348B");
+                    .HasName("PK__product___649AE20DC245A422");
 
                 entity.ToTable("product_quantity");
 
@@ -322,13 +319,13 @@ namespace SE1616_Group3_Project.Models
                     .WithMany(p => p.ProductQuantities)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__product_q__produ__4F7CD00D");
+                    .HasConstraintName("FK__product_q__produ__46E78A0C");
 
                 entity.HasOne(d => d.Shop)
                     .WithMany(p => p.ProductQuantities)
                     .HasForeignKey(d => d.ShopId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__product_q__shop___5070F446");
+                    .HasConstraintName("FK__product_q__shop___47DBAE45");
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -363,13 +360,13 @@ namespace SE1616_Group3_Project.Models
                 entity.HasOne(d => d.StaffEmailNavigation)
                     .WithMany(p => p.Shops)
                     .HasForeignKey(d => d.StaffEmail)
-                    .HasConstraintName("FK__shop__staff_emai__47DBAE45");
+                    .HasConstraintName("FK__shop__staff_emai__48CFD27E");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.Email)
-                    .HasName("PK__user__AB6E616539FD1104");
+                    .HasName("PK__user__AB6E61652474F411");
 
                 entity.ToTable("user");
 
@@ -389,7 +386,7 @@ namespace SE1616_Group3_Project.Models
 
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasColumnType("ntext")
+                    .HasMaxLength(100)
                     .HasColumnName("password");
 
                 entity.Property(e => e.Phone)
@@ -407,7 +404,7 @@ namespace SE1616_Group3_Project.Models
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.RoleId)
-                    .HasConstraintName("FK__user__role_id__44FF419A");
+                    .HasConstraintName("FK__user__role_id__49C3F6B7");
             });
 
             OnModelCreatingPartial(modelBuilder);

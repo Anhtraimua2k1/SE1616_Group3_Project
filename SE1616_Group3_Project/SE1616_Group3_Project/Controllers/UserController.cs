@@ -22,19 +22,20 @@ namespace SE1616_Group3_Project.Controllers
             string email, password;
             email = values["email"];
             password = values["password"];
-            var user = await _context.Users
-                .Include(u => u.Role)
-
-                .FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+                
             if (user == null)
             {
-                return View("Invalid email or password!");
+                ViewBag.msg = "Invalid username or password!";
+                return View();
             }
             else
             {
-                HttpContext.Session.SetString("user", email);
+                HttpContext.Session.SetString("userEmail", user.Email);
+                HttpContext.Session.SetString("userName", user.Name);
+                return RedirectToAction("Index", "Home");
             }
-            return RedirectToAction(nameof(Index), nameof(HomeController));
+           
 
         }
         public IActionResult Logout()

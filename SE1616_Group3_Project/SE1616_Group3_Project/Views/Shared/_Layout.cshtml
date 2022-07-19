@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject IHttpContextAccessor HttpContextAccessor;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -33,9 +34,13 @@
 
 <body>
     <header>
+        
         <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
             <div class="spinner-grow text-primary" role="status"></div>
         </div>
+        @{
+            string user = HttpContextAccessor.HttpContext.Session.GetString("userName") ?? "";
+        }
         <!-- Spinner End -->
         <!-- Topbar Start -->
         <div class="container-fluid top-bar bg-dark text-light px-0 wow fadeIn" data-wow-delay="0.1s">
@@ -62,7 +67,7 @@
         <!-- Topbar End -->
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-lg-0 px-lg-5 wow fadeIn" data-wow-delay="0.1s">
-            <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
+            <a asp-action="Index" asp-controller="Home" class="navbar-brand ms-4 ms-lg-0">
                 <h1 class="text-primary m-0">Baker</h1>
             </a>
             <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -82,8 +87,18 @@
                             <a href="404.html" class="dropdown-item">404 Page</a>
                         </div>
                     </div>
+
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
-                    <a asp-action="Login" asp-controller="User" class="nav-item nav-link">Login</a>
+                     @if (user == "")
+                        {
+                            <a asp-action="Login" asp-controller="User" class="nav-item nav-link">Login</a>
+                        }
+                        else
+                        {
+                            <button class="btn btn-primary nav-item">Hi @user</button> 
+                           <a asp-action="Logout" asp-controller="User" class="nav-item nav-link">Logout</a>
+                        }
+                    
 
                 </div>
                 <div class=" d-none d-lg-flex">
@@ -107,7 +122,7 @@
 
     <footer class="border-top footer text-muted">
         <!-- Footer Start -->
-        <div class="container-fluid bg-dark text-light footer my-6 mb-0 py-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container-fluid bg-dark mt-2 text-light footer wow fadeIn" data-wow-delay="0.1s">
             <div class="container py-5">
                 <div class="row g-5">
                     <div class="col-lg-3 col-md-6">
@@ -142,22 +157,22 @@
                         <h4 class="text-light mb-4">Photo Gallery</h4>
                         <div class="row g-2">
                             <div class="col-4">
-                                <img class="img-fluid bg-light rounded p-1" src="img/product-1.jpg" alt="Image">
+                                <img class="img-fluid bg-light rounded p-1" src="~/img/product-1.jpg" alt="Image">
                             </div>
                             <div class="col-4">
-                                <img class="img-fluid bg-light rounded p-1" src="img/product-2.jpg" alt="Image">
+                                <img class="img-fluid bg-light rounded p-1" src="~/img/product-2.jpg" alt="Image">
                             </div>
                             <div class="col-4">
-                                <img class="img-fluid bg-light rounded p-1" src="img/product-3.jpg" alt="Image">
+                                <img class="img-fluid bg-light rounded p-1" src="~/img/product-3.jpg" alt="Image">
                             </div>
                             <div class="col-4">
-                                <img class="img-fluid bg-light rounded p-1" src="img/product-2.jpg" alt="Image">
+                                <img class="img-fluid bg-light rounded p-1" src="~/img/product-2.jpg" alt="Image">
                             </div>
                             <div class="col-4">
-                                <img class="img-fluid bg-light rounded p-1" src="img/product-3.jpg" alt="Image">
+                                <img class="img-fluid bg-light rounded p-1" src="~/img/product-3.jpg" alt="Image">
                             </div>
                             <div class="col-4">
-                                <img class="img-fluid bg-light rounded p-1" src="img/product-1.jpg" alt="Image">
+                                <img class="img-fluid bg-light rounded p-1" src="~/img/product-1.jpg" alt="Image">
                             </div>
                         </div>
                     </div>
@@ -165,22 +180,7 @@
             </div>
         </div>
         <!-- Footer End -->
-        <!-- Copyright Start -->
-        <div class="container-fluid copyright text-light py-4 wow fadeIn" data-wow-delay="0.1s">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a href="#">Your Site Name</a>, All Right Reserved.
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                        Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                        <br>Distributed By: <a class="border-bottom" href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Copyright End -->
+
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -192,7 +192,7 @@
     <script src="~/lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="~/js/main.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
