@@ -374,6 +374,8 @@ namespace SE1616_Group3_Project.Models
 
                 entity.Property(e => e.Age).HasColumnName("age");
 
+                entity.Property(e => e.Gender).HasColumnName("gender");
+
                 entity.Property(e => e.Name)
                     .HasMaxLength(100)
                     .HasColumnName("name");

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Web;
 using SE1616_Group3_Project.Models;
 
 namespace SE1616_Group3_Project.Controllers
@@ -16,6 +17,28 @@ namespace SE1616_Group3_Project.Controllers
         {
             return View();
         }
+        public IActionResult Admin()
+        {
+            string userEmail = HttpContext.Session.GetString("userEmail");
+            var user = _context.Users.First(u => u.Email == userEmail);
+            if (user.RoleId == 1)
+            {
+                var allUser = _context.Users.Where(u => u.Email != userEmail);
+
+                ViewData["allUser"] = allUser;
+                ViewData["role"] = _context.Roles;
+                return View();
+            }
+            return RedirectToAction("Index", "Home");
+        }
+        [HttpPost]
+        public IActionResult Delete(string email)
+        {
+            var user = _context.Users.First(u => u.Email == email);
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+            return RedirectToAction("Admin");
+        }
         [HttpPost]
         public async Task<IActionResult> Login(IFormCollection values)
         {
@@ -23,7 +46,7 @@ namespace SE1616_Group3_Project.Controllers
             email = values["email"];
             password = values["password"];
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
-                
+
             if (user == null)
             {
                 ViewBag.msg = "Invalid username or password!";
@@ -35,7 +58,7 @@ namespace SE1616_Group3_Project.Controllers
                 HttpContext.Session.SetString("userName", user.Name);
                 return RedirectToAction("Index", "Home");
             }
-           
+
 
         }
         [HttpPost]
@@ -45,13 +68,15 @@ namespace SE1616_Group3_Project.Controllers
             {
                 ViewBag.msg = "Email existed";
                 return View();
-            } else
+            }
+            else
             {
                 if (phoneExist(user.Phone))
                 {
                     ViewBag.msg = "Phone existed";
                     return View();
-                } else
+                }
+                else
                 {
                     _context.Users.Add(user);
                     _context.SaveChanges();
@@ -59,10 +84,15 @@ namespace SE1616_Group3_Project.Controllers
                     return View();
                 }
             }
-            
+
+        }
+        public IActionResult ChangePassword()
+        {
+            return View();
+
         }
         [HttpPost]
-        public async Task<IActionResult> Update(IFormCollection values)
+        public async Task<IActionResult> ChangePassword(IFormCollection values)
         {
             string userEmail = HttpContext.Session.GetString("userEmail");
             var oldPassword = values["oldPassword"];
@@ -72,9 +102,10 @@ namespace SE1616_Group3_Project.Controllers
             {
                 user.Password = newPassword;
                 _context.Users.Update(user);
-               await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 ViewBag.msg = "Change password success";
-            } else
+            }
+            else
             {
                 ViewBag.msg = "Old password invalid!!";
             }
@@ -82,7 +113,8 @@ namespace SE1616_Group3_Project.Controllers
 
         }
         [HttpPost]
-        public IActionResult Update([Bind("Email", "Password", "Phone", "Name", "Address", "Age", "PhotoLink", "RoleId")] User user)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(IFormFile file,[Bind("Email", "Password", "Phone", "Name", "Address", "Age", "PhotoLink", "RoleId")] User user)
         {
             if (emailExist(user.Email))
             {
@@ -98,6 +130,17 @@ namespace SE1616_Group3_Project.Controllers
                 }
                 else
                 {
+                    if (file.Length > 0)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", fileName);
+                        using (var fileSrteam = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(fileSrteam);
+                        }
+                        user.PhotoLink = "img/" + fileName;
+                    }
+                    
                     _context.Users.Update(user);
                     _context.SaveChanges();
 
@@ -105,15 +148,15 @@ namespace SE1616_Group3_Project.Controllers
                     return RedirectToAction("Profile");
                 }
             }
-          
-            
+
+
         }
         public async Task<IActionResult> Profile()
         {
             var userEmail = HttpContext.Session.GetString("userEmail");
             var user = await _context.Users
                 .FirstAsync(u => u.Email == userEmail);
-            
+
             return View(user);
         }
         public IActionResult Logout()

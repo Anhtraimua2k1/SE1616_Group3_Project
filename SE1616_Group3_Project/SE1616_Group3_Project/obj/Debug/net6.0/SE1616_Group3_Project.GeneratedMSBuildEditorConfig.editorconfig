@@ -15,6 +15,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\nhiep\Desktop\Baking Ingredients\SE1616_Group3_Project\SE1616_Group3_Project
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/nhiep/Desktop/Baking Ingredients/SE1616_Group3_Project/SE1616_Group3_Project/Views/Blog/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmxvZ1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/nhiep/Desktop/Baking Ingredients/SE1616_Group3_Project/SE1616_Group3_Project/Views/Cart/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FydFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -39,8 +43,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/nhiep/Desktop/Baking Ingredients/SE1616_Group3_Project/SE1616_Group3_Project/Views/User/Admin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxBZG1pbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nhiep/Desktop/Baking Ingredients/SE1616_Group3_Project/SE1616_Group3_Project/Views/User/ChangePassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxDaGFuZ2VQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/nhiep/Desktop/Baking Ingredients/SE1616_Group3_Project/SE1616_Group3_Project/Views/User/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nhiep/Desktop/Baking Ingredients/SE1616_Group3_Project/SE1616_Group3_Project/Views/User/Profile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQcm9maWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/nhiep/Desktop/Baking Ingredients/SE1616_Group3_Project/SE1616_Group3_Project/Views/User/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/nhiep/Desktop/Baking Ingredients/SE1616_Group3_Project/SE1616_Group3_Project/Views/_ViewImports.cshtml]

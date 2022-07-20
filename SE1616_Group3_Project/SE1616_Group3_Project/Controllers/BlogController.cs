@@ -25,6 +25,19 @@ namespace SE1616_Group3_Project.Controllers
 
 
         }
+        public async Task<IActionResult> Detail (int id)
+        {
+
+
+            var blog = await _context.Blogs
+            .Include(b => b.Owner)
+            .FirstOrDefaultAsync(b => b.Id == id);
+            
+
+            return View(blog);
+
+
+        }
         public async Task<IActionResult> Admin()
         {
             string userEmail = HttpContext.Session.GetString("userName");

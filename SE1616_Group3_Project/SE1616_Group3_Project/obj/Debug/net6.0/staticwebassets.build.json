@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "R/F1hGbQcQyEhKSMM3keyjiaUTY4qqMxQi4omor1SPI=",
+  "Hash": "v6p0aBZkbeNqnpRH5JKPf8cno1rKm+UIItDkHJ/GBag=",
   "Source": "SE1616_Group3_Project",
   "BasePath": "_content/SE1616_Group3_Project",
   "Mode": "Default",
@@ -1343,6 +1343,23 @@
       "OriginalItemSpec": "wwwroot\\scss\\bootstrap\\scss\\_variables.scss"
     },
     {
+      "Identity": "C:\\Users\\nhiep\\Desktop\\Baking Ingredients\\SE1616_Group3_Project\\SE1616_Group3_Project\\wwwroot\\scss\\bootstrap\\scss\\bootstrap.scss",
+      "SourceId": "SE1616_Group3_Project",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\nhiep\\Desktop\\Baking Ingredients\\SE1616_Group3_Project\\SE1616_Group3_Project\\wwwroot\\",
+      "BasePath": "_content/SE1616_Group3_Project",
+      "RelativePath": "scss/bootstrap/scss/bootstrap.scss",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\scss\\bootstrap\\scss\\bootstrap.scss"
+    },
+    {
       "Identity": "C:\\Users\\nhiep\\Desktop\\Baking Ingredients\\SE1616_Group3_Project\\SE1616_Group3_Project\\wwwroot\\scss\\bootstrap\\scss\\bootstrap-grid.scss",
       "SourceId": "SE1616_Group3_Project",
       "SourceType": "Discovered",
@@ -1392,23 +1409,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\scss\\bootstrap\\scss\\bootstrap-utilities.scss"
-    },
-    {
-      "Identity": "C:\\Users\\nhiep\\Desktop\\Baking Ingredients\\SE1616_Group3_Project\\SE1616_Group3_Project\\wwwroot\\scss\\bootstrap\\scss\\bootstrap.scss",
-      "SourceId": "SE1616_Group3_Project",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\nhiep\\Desktop\\Baking Ingredients\\SE1616_Group3_Project\\SE1616_Group3_Project\\wwwroot\\",
-      "BasePath": "_content/SE1616_Group3_Project",
-      "RelativePath": "scss/bootstrap/scss/bootstrap.scss",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\scss\\bootstrap\\scss\\bootstrap.scss"
     },
     {
       "Identity": "C:\\Users\\nhiep\\Desktop\\Baking Ingredients\\SE1616_Group3_Project\\SE1616_Group3_Project\\wwwroot\\scss\\bootstrap\\scss\\forms\\_floating-labels.scss",

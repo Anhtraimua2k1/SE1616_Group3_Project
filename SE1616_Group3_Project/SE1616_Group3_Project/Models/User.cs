@@ -22,6 +22,7 @@ namespace SE1616_Group3_Project.Models
         public int? Age { get; set; }
         public string? PhotoLink { get; set; }
         public int? RoleId { get; set; }
+        public bool? Gender { get; set; }
 
         public virtual Role? Role { get; set; }
         public virtual ICollection<Blog> Blogs { get; set; }
