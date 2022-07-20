@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace SE1616_Group3_Project.Models
 {
     public partial class ProductQuantity
@@ -12,7 +10,7 @@ namespace SE1616_Group3_Project.Models
         public int Quantity { get; set; }
         public DateTime UpdateDate { get; set; }
 
-        public virtual Product Product { get; set; }
-        public virtual Shop Shop { get; set; }
+        public virtual Product Product { get; set; } = null!;
+        public virtual Shop Shop { get; set; } = null!;
     }
 }

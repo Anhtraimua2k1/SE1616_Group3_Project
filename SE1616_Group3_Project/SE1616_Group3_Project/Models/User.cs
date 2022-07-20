@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace SE1616_Group3_Project.Models
 {
     public partial class User
@@ -16,16 +14,16 @@ namespace SE1616_Group3_Project.Models
             Shops = new HashSet<Shop>();
         }
 
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Phone { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
+        public string Email { get; set; } = null!;
+        public string Password { get; set; } = null!;
+        public string? Phone { get; set; }
+        public string? Name { get; set; }
+        public string? Address { get; set; }
         public int? Age { get; set; }
-        public string PhotoLink { get; set; }
+        public string? PhotoLink { get; set; }
         public int? RoleId { get; set; }
 
-        public virtual Role Role { get; set; }
+        public virtual Role? Role { get; set; }
         public virtual ICollection<Blog> Blogs { get; set; }
         public virtual ICollection<CartItem> CartItems { get; set; }
         public virtual ICollection<Feedback> Feedbacks { get; set; }

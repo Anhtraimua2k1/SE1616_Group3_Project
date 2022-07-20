@@ -1,8 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-
-#nullable disable
 
 namespace SE1616_Group3_Project.Models
 {
@@ -17,19 +16,19 @@ namespace SE1616_Group3_Project.Models
         {
         }
 
-        public virtual DbSet<Blog> Blogs { get; set; }
-        public virtual DbSet<CartItem> CartItems { get; set; }
-        public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<DeliveryStatus> DeliveryStatuses { get; set; }
-        public virtual DbSet<Feedback> Feedbacks { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<OrderItem> OrderItems { get; set; }
-        public virtual DbSet<PaymentMethod> PaymentMethods { get; set; }
-        public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<ProductQuantity> ProductQuantities { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<Shop> Shops { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Blog> Blogs { get; set; } = null!;
+        public virtual DbSet<CartItem> CartItems { get; set; } = null!;
+        public virtual DbSet<Category> Categories { get; set; } = null!;
+        public virtual DbSet<DeliveryStatus> DeliveryStatuses { get; set; } = null!;
+        public virtual DbSet<Feedback> Feedbacks { get; set; } = null!;
+        public virtual DbSet<Order> Orders { get; set; } = null!;
+        public virtual DbSet<OrderItem> OrderItems { get; set; } = null!;
+        public virtual DbSet<PaymentMethod> PaymentMethods { get; set; } = null!;
+        public virtual DbSet<Product> Products { get; set; } = null!;
+        public virtual DbSet<ProductQuantity> ProductQuantities { get; set; } = null!;
+        public virtual DbSet<Role> Roles { get; set; } = null!;
+        public virtual DbSet<Shop> Shops { get; set; } = null!;
+        public virtual DbSet<User> Users { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -42,8 +41,6 @@ namespace SE1616_Group3_Project.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
-
             modelBuilder.Entity<Blog>(entity =>
             {
                 entity.ToTable("blog");
@@ -51,7 +48,6 @@ namespace SE1616_Group3_Project.Models
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Detail)
-                    .IsRequired()
                     .HasColumnType("ntext")
                     .HasColumnName("detail");
 
@@ -64,31 +60,31 @@ namespace SE1616_Group3_Project.Models
                     .HasColumnName("owner");
 
                 entity.Property(e => e.PhotoLink)
-                    .IsRequired()
                     .HasColumnType("ntext")
                     .HasColumnName("photo_link");
 
                 entity.Property(e => e.Title)
-                    .IsRequired()
                     .HasMaxLength(300)
                     .HasColumnName("title");
 
                 entity.HasOne(d => d.OwnerNavigation)
                     .WithMany(p => p.Blogs)
                     .HasForeignKey(d => d.Owner)
-                    .HasConstraintName("FK__blog__owner__3D5E1FD2");
+                    .HasConstraintName("FK__blog__owner__5EBF139D");
             });
 
             modelBuilder.Entity<CartItem>(entity =>
             {
-                entity.HasKey(e => e.ProductId)
-                    .HasName("PK__cart_ite__47027DF523FAA3D6");
+                entity.HasKey(e => new { e.ProductId, e.UserEmail })
+                    .HasName("PK__cart_ite__6C0DC7D46D99660B");
 
                 entity.ToTable("cart_item");
 
-                entity.Property(e => e.ProductId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("product_id");
+                entity.Property(e => e.ProductId).HasColumnName("product_id");
+
+                entity.Property(e => e.UserEmail)
+                    .HasMaxLength(100)
+                    .HasColumnName("user_email");
 
                 entity.Property(e => e.AddedDate)
                     .HasColumnType("datetime")
@@ -96,20 +92,17 @@ namespace SE1616_Group3_Project.Models
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
-                entity.Property(e => e.UserEmail)
-                    .HasMaxLength(100)
-                    .HasColumnName("user_email");
-
                 entity.HasOne(d => d.Product)
-                    .WithOne(p => p.CartItem)
-                    .HasForeignKey<CartItem>(d => d.ProductId)
+                    .WithMany(p => p.CartItems)
+                    .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__cart_item__produ__3E52440B");
+                    .HasConstraintName("FK__cart_item__produ__47DBAE45");
 
                 entity.HasOne(d => d.UserEmailNavigation)
                     .WithMany(p => p.CartItems)
                     .HasForeignKey(d => d.UserEmail)
-                    .HasConstraintName("FK__cart_item__user___3F466844");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__cart_item__user___48CFD27E");
             });
 
             modelBuilder.Entity<Category>(entity =>
@@ -118,73 +111,77 @@ namespace SE1616_Group3_Project.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.Category1)
-                    .IsRequired()
+                entity.Property(e => e.Name)
                     .HasMaxLength(200)
-                    .HasColumnName("category");
+                    .HasColumnName("name");
             });
 
             modelBuilder.Entity<DeliveryStatus>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => new { e.OrderItem, e.UpdatedTime })
+                    .HasName("PK__delivery__0FE921B1BF03A989");
 
                 entity.ToTable("delivery_status");
 
+                entity.Property(e => e.OrderItem).HasColumnName("order_item");
+
+                entity.Property(e => e.UpdatedTime)
+                    .HasColumnType("datetime")
+                    .HasColumnName("updated_time");
+
                 entity.Property(e => e.DeliveryUnit)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .HasColumnName("delivery_unit");
-
-                entity.Property(e => e.OrderItem).HasColumnName("order_item");
 
                 entity.Property(e => e.ShippingCompleted).HasColumnName("shipping_completed");
 
                 entity.Property(e => e.ShippingStatus)
-                    .IsRequired()
                     .HasColumnType("ntext")
                     .HasColumnName("shipping_status");
 
                 entity.HasOne(d => d.OrderItemNavigation)
-                    .WithMany()
+                    .WithMany(p => p.DeliveryStatuses)
                     .HasForeignKey(d => d.OrderItem)
-                    .HasConstraintName("FK__delivery___order__403A8C7D");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__delivery___order__5535A963");
             });
 
             modelBuilder.Entity<Feedback>(entity =>
             {
-                entity.HasKey(e => new { e.UserEmail, e.OrderItem })
-                    .HasName("PK__feedback__F3DCE7DC9225E090");
+                entity.HasKey(e => new { e.OrderItem, e.FeedbackWritter })
+                    .HasName("PK__feedback__53171D98218F45FC");
 
                 entity.ToTable("feedback");
 
-                entity.Property(e => e.UserEmail)
-                    .HasMaxLength(100)
-                    .HasColumnName("user_email");
-
                 entity.Property(e => e.OrderItem).HasColumnName("order_item");
 
+                entity.Property(e => e.FeedbackWritter)
+                    .HasMaxLength(100)
+                    .HasColumnName("feedback_writter");
+
                 entity.Property(e => e.FeedbackDetail)
-                    .IsRequired()
                     .HasColumnType("ntext")
                     .HasColumnName("feedback_detail");
+
+                entity.Property(e => e.FeedbackEnable)
+                    .HasColumnName("feedback_enable")
+                    .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.FeedbackPhoto)
                     .HasColumnType("ntext")
                     .HasColumnName("feedback_photo");
 
-                entity.Property(e => e.FeedbackRate).HasColumnName("feedback_rate");
+                entity.HasOne(d => d.FeedbackWritterNavigation)
+                    .WithMany(p => p.Feedbacks)
+                    .HasForeignKey(d => d.FeedbackWritter)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__feedback__feedba__59063A47");
 
                 entity.HasOne(d => d.OrderItemNavigation)
                     .WithMany(p => p.Feedbacks)
                     .HasForeignKey(d => d.OrderItem)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__feedback__order___412EB0B6");
-
-                entity.HasOne(d => d.UserEmailNavigation)
-                    .WithMany(p => p.Feedbacks)
-                    .HasForeignKey(d => d.UserEmail)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__feedback__user_e__4222D4EF");
+                    .HasConstraintName("FK__feedback__order___59FA5E80");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -208,19 +205,19 @@ namespace SE1616_Group3_Project.Models
                 entity.HasOne(d => d.PaymentMethodNavigation)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.PaymentMethod)
-                    .HasConstraintName("FK__order__payment_m__4316F928");
+                    .HasConstraintName("FK__order__payment_m__4E88ABD4");
 
                 entity.HasOne(d => d.UserEmailNavigation)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.UserEmail)
-                    .HasConstraintName("FK__order__user_emai__440B1D61");
+                    .HasConstraintName("FK__order__user_emai__4D94879B");
             });
 
             modelBuilder.Entity<OrderItem>(entity =>
             {
                 entity.ToTable("order_item");
 
-                entity.HasIndex(e => e.ProductName, "UQ__order_it__2B5A6A5FDAD5A8D0")
+                entity.HasIndex(e => e.ProductName, "UQ__order_it__2B5A6A5F29D69724")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -232,7 +229,6 @@ namespace SE1616_Group3_Project.Models
                 entity.Property(e => e.OrderId).HasColumnName("order_id");
 
                 entity.Property(e => e.PhotoLink)
-                    .IsRequired()
                     .HasColumnType("ntext")
                     .HasColumnName("photo_link");
 
@@ -241,7 +237,6 @@ namespace SE1616_Group3_Project.Models
                     .HasColumnName("price");
 
                 entity.Property(e => e.ProductName)
-                    .IsRequired()
                     .HasMaxLength(150)
                     .HasColumnName("product_name");
 
@@ -250,7 +245,7 @@ namespace SE1616_Group3_Project.Models
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.OrderItems)
                     .HasForeignKey(d => d.OrderId)
-                    .HasConstraintName("FK__order_ite__order__44FF419A");
+                    .HasConstraintName("FK__order_ite__order__52593CB8");
             });
 
             modelBuilder.Entity<PaymentMethod>(entity =>
@@ -277,12 +272,10 @@ namespace SE1616_Group3_Project.Models
                     .HasColumnName("detail");
 
                 entity.Property(e => e.Name)
-                    .IsRequired()
                     .HasMaxLength(150)
                     .HasColumnName("name");
 
                 entity.Property(e => e.PhotoLink)
-                    .IsRequired()
                     .HasColumnType("ntext")
                     .HasColumnName("photo_link");
 
@@ -295,13 +288,13 @@ namespace SE1616_Group3_Project.Models
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CategoryId)
-                    .HasConstraintName("FK__product__categor__45F365D3");
+                    .HasConstraintName("FK__product__categor__412EB0B6");
             });
 
             modelBuilder.Entity<ProductQuantity>(entity =>
             {
                 entity.HasKey(e => new { e.ProductId, e.ShopId, e.UpdateDate })
-                    .HasName("PK__product___649AE20DC245A422");
+                    .HasName("PK__product___649AE20DAD3A40D8");
 
                 entity.ToTable("product_quantity");
 
@@ -319,13 +312,13 @@ namespace SE1616_Group3_Project.Models
                     .WithMany(p => p.ProductQuantities)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__product_q__produ__46E78A0C");
+                    .HasConstraintName("FK__product_q__produ__440B1D61");
 
                 entity.HasOne(d => d.Shop)
                     .WithMany(p => p.ProductQuantities)
                     .HasForeignKey(d => d.ShopId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__product_q__shop___47DBAE45");
+                    .HasConstraintName("FK__product_q__shop___44FF419A");
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -336,10 +329,9 @@ namespace SE1616_Group3_Project.Models
                     .ValueGeneratedNever()
                     .HasColumnName("id");
 
-                entity.Property(e => e.Role1)
-                    .IsRequired()
+                entity.Property(e => e.Name)
                     .HasMaxLength(100)
-                    .HasColumnName("role");
+                    .HasColumnName("name");
             });
 
             modelBuilder.Entity<Shop>(entity =>
@@ -349,7 +341,6 @@ namespace SE1616_Group3_Project.Models
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Address)
-                    .IsRequired()
                     .HasColumnType("ntext")
                     .HasColumnName("address");
 
@@ -360,15 +351,18 @@ namespace SE1616_Group3_Project.Models
                 entity.HasOne(d => d.StaffEmailNavigation)
                     .WithMany(p => p.Shops)
                     .HasForeignKey(d => d.StaffEmail)
-                    .HasConstraintName("FK__shop__staff_emai__48CFD27E");
+                    .HasConstraintName("FK__shop__staff_emai__3C69FB99");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.Email)
-                    .HasName("PK__user__AB6E61652474F411");
+                    .HasName("PK__user__AB6E6165C5948986");
 
                 entity.ToTable("user");
+
+                entity.HasIndex(e => e.Phone, "UQ__user__B43B145F251A806B")
+                    .IsUnique();
 
                 entity.Property(e => e.Email)
                     .HasMaxLength(100)
@@ -385,7 +379,6 @@ namespace SE1616_Group3_Project.Models
                     .HasColumnName("name");
 
                 entity.Property(e => e.Password)
-                    .IsRequired()
                     .HasMaxLength(100)
                     .HasColumnName("password");
 
@@ -393,7 +386,7 @@ namespace SE1616_Group3_Project.Models
                     .HasMaxLength(10)
                     .IsUnicode(false)
                     .HasColumnName("phone")
-                    .IsFixedLength(true);
+                    .IsFixedLength();
 
                 entity.Property(e => e.PhotoLink)
                     .HasColumnType("ntext")
@@ -404,7 +397,7 @@ namespace SE1616_Group3_Project.Models
                 entity.HasOne(d => d.Role)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.RoleId)
-                    .HasConstraintName("FK__user__role_id__49C3F6B7");
+                    .HasConstraintName("FK__user__role_id__398D8EEE");
             });
 
             OnModelCreatingPartial(modelBuilder);

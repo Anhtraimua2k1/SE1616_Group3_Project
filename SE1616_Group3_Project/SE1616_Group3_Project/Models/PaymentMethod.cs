@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-#nullable disable
-
 namespace SE1616_Group3_Project.Models
 {
     public partial class PaymentMethod
@@ -13,7 +11,7 @@ namespace SE1616_Group3_Project.Models
         }
 
         public int Id { get; set; }
-        public string Method { get; set; }
+        public string? Method { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
     }
